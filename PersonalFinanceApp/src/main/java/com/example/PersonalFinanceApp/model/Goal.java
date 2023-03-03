@@ -18,18 +18,25 @@ public class Goal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	@Column(name ="userid")
 	private long userid;
+	
 	@Column(name= "amount")
 	private double amount;
+	
 	@Column(name="currentAmount")
 	private double currentAmount;
+	
 	@Column(name="name")
 	private String name;
+	
 	@Column(name="description")
 	private String description;
+	
 	@Column(name="deadline")
 	private Date deadline;
+	
 	@Column(name="createdAt")
 	private LocalDate createdAt;
 
@@ -37,7 +44,7 @@ public class Goal {
 
 	public Goal() {}
 
-	public Goal(int userid , String name, double amount , double currentAmount,String description, Date deadline) {
+	public Goal(long user_id , String name, double amount , double currentAmount,String description, Date deadline) {
 		// Total amount of the goal
 		this.amount=amount;
 		//Name of the goal
