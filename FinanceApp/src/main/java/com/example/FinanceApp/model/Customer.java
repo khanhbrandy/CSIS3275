@@ -3,6 +3,7 @@ package com.example.FinanceApp.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -52,7 +53,7 @@ public class Customer {
 		return transactions;
 	}
 
-	public void setSections(Set<Transaction> transactions) {
+	public void setTransactions(Set<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 	
@@ -147,6 +148,5 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 	
 }
