@@ -94,7 +94,13 @@ public class TransactionController {
 	@DeleteMapping("/customers/{customerId}/transactions/{id}")
 	public ResponseEntity<HttpStatus> deleteTransaction(@PathVariable("id") long id, @PathVariable("customerId") long customerId) {
 		try {
-			transactionRepo.deleteById(id);
+			Optional<Customer> customer = customerRepo.findById(customerId);
+			if (customer.isPresent()) {
+				Optional<Transaction> transaction = transactionRepo.findById(id);
+				if (transaction.isPresent()) {
+					transactionRepo.deleteById(id);
+				}
+			}
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
