@@ -1,23 +1,21 @@
 package com.example.FinanceApp;
 
-<<<<<<< HEAD
-=======
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
->>>>>>> upstream/main
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-<<<<<<< HEAD
+
 import com.example.FinanceApp.model.Goal;
 import com.example.FinanceApp.model.GoalRepository;
-=======
+
 import com.example.FinanceApp.model.Customer;
 import com.example.FinanceApp.model.CustomerRepository;
 import com.example.FinanceApp.model.Transaction;
->>>>>>> upstream/main
 
 @SpringBootApplication
 public class FinanceAppApplication {
@@ -25,19 +23,9 @@ public class FinanceAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FinanceAppApplication.class, args);
 	}
-<<<<<<< HEAD
-	@Bean
-	ApplicationRunner init(GoalRepository goalRepository) {
-		return args -> {
-
-			goalRepository.save(new Goal(001,"House",200000,70000,"Money for my house","2025-12-03"));
-			goalRepository.save(new Goal(001,"Car",65000, 8000,"For my dream Car","2024-05-30"));
-			goalRepository.save(new Goal(002,"House",500000,100000,"Money for my house","2039-03-01"));
-			goalRepository.findAll().forEach(System.out::println);
-=======
 	
 	@Bean // right after calling Main method (server started), this Bean method would be called automatically
-	ApplicationRunner init(CustomerRepository customerRepo) {
+	ApplicationRunner init(CustomerRepository customerRepo, GoalRepository goalRepository) {
 		return (arg) -> {
 			// Customer 1
 			Customer customer1 = new Customer("Brandy", 30, "brandy@douglascollege.ca", "Student", "Vietnam", "brandy", "123456");
@@ -87,8 +75,28 @@ public class FinanceAppApplication {
 			transaction10.setCustomer(customer4);
 			customerRepo.save(customer4);
 			
+			//Some test Goals
+			Set <Goal> goalsCustomer1 = new HashSet<>();
+			Set <Goal> goalsCustomer2 = new HashSet<>();
+			Goal goal1 = new Goal("House",200000,70000,"Money for my house","2025-12-03");
+			goal1.setCustomer(customer1);
+			Goal goal2 = new Goal("Car",65000,8000, "For my dream Car","2024-05-30");
+			goal2.setCustomer(customer1);
+			goalsCustomer1.add(goal1);
+			goalsCustomer1.add(goal2);
+			customer1.setGoal(goalsCustomer1);
 			
->>>>>>> upstream/main
+			
+			Goal goal3 = new Goal("House",500000,100000,"Money for my house","2039-03-01");
+			goal3.setCustomer(customer2);
+			goalsCustomer2.add(goal3);
+			customer2.setGoal(goalsCustomer2);
+			
+			goalRepository.save(goal1);
+			goalRepository.save(goal2);
+			goalRepository.save(goal3);
+			goalRepository.findAll().forEach(System.out::println);
+			
 		};
 	}
 

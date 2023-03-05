@@ -2,11 +2,16 @@ package com.example.FinanceApp.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
@@ -19,9 +24,15 @@ public class Goal {
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
 		private long id;
-		
-		@Column(name ="userid")
-		private long userid;
+		//Many goals would have a single user
+		@ManyToOne(fetch = FetchType.EAGER, optional = false)
+		//convention here is name = nameoftable_fieldname
+		@JoinColumn(name = "Customer_id", nullable = false) 
+		@JsonIgnore
+		private Customer customer;
+
+//		@Column(name ="userid")
+//		private long userid;
 		
 		@Column(name= "amount")
 		private double amount;
@@ -45,9 +56,7 @@ public class Goal {
 
 		public Goal() {}
 
-		public Goal(long userid , String name, double amount , double currentAmount,String description, String deadline) {
-			//userid
-			this.userid=userid;
+		public Goal(String name , double amount, double currentAmount , String description,String deadline) {
 			// Total amount of the goal
 			this.amount=amount;
 			//Name of the goal
@@ -66,13 +75,13 @@ public class Goal {
 
 
 
-		public long getUserid() {
-			return userid;
-		}
-
-		public void setUserid(long userid) {
-			this.userid = userid;
-		}
+//		public long getUserid() {
+//			return userid;
+//		}
+//
+//		public void setUserid(long userid) {
+//			this.userid = userid;
+//		}
 
 		public double getCurrentAmount() {
 			return currentAmount;
@@ -119,6 +128,14 @@ public class Goal {
 
 		public void setCreatedAt(String createdAt) {
 			this.createdAt = createdAt;
+		}
+
+		public void setCustomer(Customer customer ) {
+			this.customer = customer;
+			
+		}
+		public Customer getCustomer() {
+			return this.customer;
 		}
 
 

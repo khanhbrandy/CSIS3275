@@ -37,7 +37,7 @@ public class Transaction {
 	private String note;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false) 
-	@JoinColumn(name = "userId", nullable = false) 
+	@JoinColumn(name = "userid", nullable = false) 
 	@JsonIgnore
 	private Customer customer;
 
