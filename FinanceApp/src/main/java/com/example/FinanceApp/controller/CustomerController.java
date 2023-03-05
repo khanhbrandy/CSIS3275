@@ -2,6 +2,7 @@ package com.example.FinanceApp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,33 @@ public class CustomerController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/customers/{id}/language")
+	public ResponseEntity<String> getLanguage(@PathVariable Long id) {
+		try {
+			Optional<Customer> customer = customerRepo.findById(id);
+			if (customer.isPresent()) {
+				Customer _customer = customer.get();
+				return new ResponseEntity<>(_customer.getLanguage(), HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping("/customers/{id}/language")
+	public ResponseEntity<Customer> updateLanguage(@PathVariable("id") long id,
+			@RequestBody Map<String, String> payload) {
+		Optional<Customer> customerData = customerRepo.findById(id);
+		if (customerData.isPresent()) {
+			Customer _customer = customerData.get();
+			_customer.setLanguage(payload.get("language"));
+			return new ResponseEntity<>(customerRepo.save(_customer), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
