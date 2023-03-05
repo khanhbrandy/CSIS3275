@@ -36,7 +36,7 @@ public class Transaction {
 	@Column(name = "note")
 	private String note;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false) 
+	@ManyToOne(fetch = FetchType.EAGER, optional = false) 
 	@JoinColumn(name = "userId", nullable = false) 
 	@JsonIgnore
 	private Customer customer;

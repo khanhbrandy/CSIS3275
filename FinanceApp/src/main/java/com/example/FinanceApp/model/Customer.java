@@ -3,6 +3,7 @@ package com.example.FinanceApp.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -45,6 +46,9 @@ public class Customer {
 	@Column(name = "password")
 	private String password;
 	
+	@Column(name = "language")
+	private String language;
+	
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Transaction> transactions = new HashSet<>();
 
@@ -52,7 +56,7 @@ public class Customer {
 		return transactions;
 	}
 
-	public void setSections(Set<Transaction> transactions) {
+	public void setTransactions(Set<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 	
@@ -66,8 +70,9 @@ public class Customer {
 		this.country = country;
 		this.username = username;
 		this.password = password;
+		this.language = "English";
 	}
-	
+
 	public void addTransaction(Transaction transaction) {
 		this.transactions.add(transaction);
 		transaction.setCustomer(this);
@@ -148,5 +153,11 @@ public class Customer {
 		this.password = password;
 	}
 	
-	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 }
