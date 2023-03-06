@@ -36,6 +36,11 @@ public class Transaction {
 	@Column(name = "note")
 	private String note;
 	
+
+//Changed this. There was 2. Not sure if name of the column would affect anything, changed to fetch to Eager as our database is small
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false) 
+//	@JoinColumn(name = "userid", nullable = false) 
+	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false) 
 	@JoinColumn(name = "userId", nullable = false) 
 	@JsonIgnore

@@ -3,8 +3,9 @@ package com.example.FinanceApp.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,9 +47,13 @@ public class Customer {
 	@Column(name = "password")
 	private String password;
 	
+
+	// A customer would have multiple transactions
+
 	@Column(name = "language")
 	private String language;
 	
+
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Transaction> transactions = new HashSet<>();
 
@@ -59,6 +64,21 @@ public class Customer {
 	public void setTransactions(Set<Transaction> transactions) {
 		this.transactions = transactions;
 	}
+	
+	//Goals
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<Goal> goals = new HashSet<>();
+	//Goals Setters and getters
+	public void setGoal(Set<Goal> goals) {
+		this.goals = goals;
+	}
+	public Set<Goal> getGoal(){
+		return this.goals;
+	}
+	
+	
+	
 	
 	public Customer() {} 
 	public Customer(String name, int age, String email, String profession, String country, String username, String password) {
