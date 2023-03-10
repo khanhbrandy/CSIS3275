@@ -57,7 +57,7 @@ public class CustomerController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@GetMapping("/customers/{id}/language")
 	public ResponseEntity<String> getLanguage(@PathVariable Long id) {
 		try {
@@ -71,7 +71,7 @@ public class CustomerController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@PutMapping("/customers/{id}/language")
 	public ResponseEntity<Customer> updateLanguage(@PathVariable("id") long id,
 			@RequestBody Map<String, String> payload) {
@@ -82,6 +82,28 @@ public class CustomerController {
 			return new ResponseEntity<>(customerRepo.save(_customer), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PostMapping("/login/{id}")
+	public ResponseEntity<HttpStatus> login(@PathVariable("id") long id, @RequestBody Map<String, String> payload) {
+		try {
+			boolean isSuccessful = false;
+			Optional<Customer> customerData = customerRepo.findById(id);
+			if (customerData.isPresent()) {
+				Customer _customer = customerData.get();
+				if (_customer.getUsername().equals(payload.get("username")) && _customer.getPassword().equals(payload.get("password"))) {
+					isSuccessful = true;
+				}
+			}
+			if (isSuccessful) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -99,8 +121,7 @@ public class CustomerController {
 	}
 
 	@PutMapping("/customers/{id}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id,
-			@RequestBody Customer customer) {
+	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
 		Optional<Customer> customerData = customerRepo.findById(id);
 
 		if (customerData.isPresent()) {
@@ -112,7 +133,7 @@ public class CustomerController {
 			_customer.setCountry(customer.getCountry());
 			_customer.setUsername(customer.getUsername());
 			_customer.setPassword(customer.getPassword());
-			
+
 			return new ResponseEntity<>(customerRepo.save(_customer), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
