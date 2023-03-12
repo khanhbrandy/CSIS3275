@@ -50,7 +50,7 @@ public class Goal {
 		private String deadline;
 		
 		@Column(name="createdAt")
-		private String createdAt;
+		private LocalDate createdAt;
 
 
 
@@ -67,8 +67,7 @@ public class Goal {
 			this.description = description;
 			this.deadline = deadline;
 			// Set the creation time.
-			String today = LocalDate.now().toString();
-			this.createdAt = today;
+			this.createdAt = LocalDate.now();
 
 		}
 
@@ -122,11 +121,11 @@ public class Goal {
 			this.deadline = deadline;
 		}
 
-		public String getCreatedAt() {
+		public LocalDate getCreatedAt() {
 			return createdAt;
 		}
 
-		public void setCreatedAt(String createdAt) {
+		public void setCreatedAt(LocalDate createdAt) {
 			this.createdAt = createdAt;
 		}
 
