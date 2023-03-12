@@ -52,7 +52,7 @@ public class FinanceAppApplication {
 			customerRepo.save(customer2);
 			
 			// Customer 3
-			Customer customer3 = new Customer("Sumit", 37, "sumit@douglascollege.ca", "Student", "India", "sumit", "123456");
+			Customer customer3 = new Customer("Lara", 37, "lara@douglascollege.ca", "Student", "Canada", "lara", "123456");
 			Transaction transaction6 = new Transaction(90, "food", "expense", "at Save-on");
 			customer3.getTransactions().add(transaction6);
 			transaction6.setCustomer(customer3);
@@ -66,7 +66,7 @@ public class FinanceAppApplication {
 			customerRepo.save(customer3);
 			
 			// Customer 4
-			Customer customer4 = new Customer("Akash", 28, "akash@douglascollege.ca", "Student", "India", "akash", "123456");
+			Customer customer4 = new Customer("Akash", 28, "alan@douglascollege.ca", "Student", "India", "alan", "123456");
 			Transaction transaction9 = new Transaction(66, "food", "expense", "at TnT");
 			customer4.getTransactions().add(transaction9);
 			transaction9.setCustomer(customer4);
