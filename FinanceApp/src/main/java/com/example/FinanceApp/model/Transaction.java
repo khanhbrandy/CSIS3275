@@ -1,5 +1,6 @@
 package com.example.FinanceApp.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -22,7 +23,7 @@ public class Transaction {
 	private long id;
 	
 	@Column(name = "createdAt")
-	private String createdAt;
+	private LocalDate createdAt;
 	
 	@Column(name = "amount")
 	private double amount;
@@ -56,7 +57,7 @@ public class Transaction {
 	
 	public Transaction() {}
 	public Transaction(double amount, String category, String type, String note) {
-		this.setCreatedAt();
+		this.createdAt = LocalDate.now();
 		this.amount = amount;
 		this.category = category;
 		this.type = type;
@@ -71,16 +72,16 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public String getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
-
-	public void setCreatedAt() {
-		LocalDateTime current = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		String formattedDateTime = current.format(formatter);
-		this.createdAt = formattedDateTime;
-	}
+//
+//	public void setCreatedAt() {
+//		LocalDateTime current = LocalDateTime.now();
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//		String formattedDateTime = current.format(formatter);
+//		this.createdAt = formattedDateTime;
+//	}
 
 	public double getAmount() {
 		return amount;
