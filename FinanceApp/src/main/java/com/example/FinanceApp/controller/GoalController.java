@@ -95,7 +95,7 @@ try {
 }
 }
 
-@DeleteMapping("/customers/{users_id}/goals/{goal_id}")
+@DeleteMapping("/customers/{user_id}/goals/{goal_id}")
 public ResponseEntity<HttpStatus> deleteGoal(@PathVariable("user_id") long user_id,@PathVariable("goal_id") long goal_id) {
 	try {
 		goalRepository.deleteByIdAndCustomer_Id( goal_id, user_id);
@@ -106,8 +106,8 @@ public ResponseEntity<HttpStatus> deleteGoal(@PathVariable("user_id") long user_
 }
 
 //Delete All goals for an specific user
-@DeleteMapping("/customers/{users_id}/goals")
-public ResponseEntity<HttpStatus> deleteAllGoals(@PathVariable("users_id") long userId) {
+@DeleteMapping("/customers/{user_id}/goals")
+public ResponseEntity<HttpStatus> deleteAllGoals(@PathVariable("user_id") long userId) {
 	try {
 		goalRepository.deleteByCustomer_Id(userId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
