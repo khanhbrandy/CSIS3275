@@ -27,12 +27,9 @@ public class Goal {
 		//Many goals would have a single user
 		@ManyToOne(fetch = FetchType.EAGER, optional = false)
 		//convention here is name = nameoftable_fieldname
-		@JoinColumn(name = "Customer_id", nullable = false) 
+		@JoinColumn(name = "userId", nullable = false) 
 		@JsonIgnore
 		private Customer customer;
-
-//		@Column(name ="userid")
-//		private long userid;
 		
 		@Column(name= "amount")
 		private double amount;
@@ -56,7 +53,7 @@ public class Goal {
 
 		public Goal() {}
 
-		public Goal(String name , double amount, double currentAmount , String description,String deadline) {
+		public Goal(String name , double amount, double currentAmount , String description, String deadline) {
 			// Total amount of the goal
 			this.amount=amount;
 			//Name of the goal
@@ -72,15 +69,6 @@ public class Goal {
 		}
 
 
-
-
-//		public long getUserid() {
-//			return userid;
-//		}
-//
-//		public void setUserid(long userid) {
-//			this.userid = userid;
-//		}
 
 		public double getCurrentAmount() {
 			return currentAmount;

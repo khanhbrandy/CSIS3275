@@ -3,6 +3,7 @@ package com.example.FinanceApp.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class GoalController {
 	public ResponseEntity<List<Goal>> getAllGoals(@PathVariable("customer_id") long user_id) {
 		try {
 			List<Goal> allGoals = new ArrayList<Goal>();
-			// To-do
+			
 			allGoals = goalRepository.getByCustomer_Id(user_id);
 			if (allGoals.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -53,11 +54,19 @@ public class GoalController {
 
 //Create a new Goal for a given user
 	@PostMapping("/customers/{customer_id}/goals")
-	public ResponseEntity<Goal> createGoal(@PathVariable("customer_id") long user_id, @RequestBody Goal newGoal) {
+	public ResponseEntity<Goal> createGoal(@PathVariable("customer_id") long user_id, @RequestBody Goal goal) {
 		try {
-			Goal new_goal = goalRepository.save(new Goal(newGoal.getName(), newGoal.getAmount(), newGoal.getCurrentAmount(),
-					newGoal.getDescription(), newGoal.getDeadline()));
-			return new ResponseEntity<Goal>(new_goal, HttpStatus.CREATED);
+			Optional<Customer> user = customerRepository.findById(user_id);
+			//Create Goal
+			Goal _goal = new Goal(goal.getName(), goal.getAmount(), goal.getCurrentAmount(),
+					goal.getDescription(), goal.getDeadline());
+			if(user.isPresent()) {
+				Customer _customer = user.get();
+				_customer.getGoal().add(_goal);
+				_goal.setCustomer(_customer);
+				customerRepository.save(_customer);
+			}
+			return new ResponseEntity<>(_goal,HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -98,7 +107,14 @@ try {
 @DeleteMapping("/customers/{customer_id}/goals/{goal_id}")
 public ResponseEntity<HttpStatus> deleteGoal(@PathVariable("customer_id") long user_id,@PathVariable("goal_id") long goal_id) {
 	try {
-		goalRepository.deleteByIdAndCustomer_Id( goal_id, user_id);
+		Optional<Customer> customer = customerRepository.findById(user_id);
+		if(customer.isPresent()) {
+			Optional<Goal> GtoDelete = goalRepository.findById(goal_id);
+			if(GtoDelete.isPresent()) {
+				goalRepository.deleteById(goal_id);
+			}
+		}
+		
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	} catch (Exception e) {
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -109,8 +125,16 @@ public ResponseEntity<HttpStatus> deleteGoal(@PathVariable("customer_id") long u
 @DeleteMapping("/customers/{user_id}/goals")
 public ResponseEntity<HttpStatus> deleteAllGoals(@PathVariable("user_id") long userId) {
 	try {
-		goalRepository.deleteByCustomer_Id(userId);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		Optional<Customer> customer = customerRepository.findById(userId);
+		if (customer.isPresent()) {
+			Set<Goal> cgoals = goalRepository.findByCustomer_Id(userId);
+			if(!cgoals.isEmpty()) {
+				cgoals.removeAll(cgoals);
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		}
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	} catch (Exception e) {
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
