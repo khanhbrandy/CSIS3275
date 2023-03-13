@@ -111,46 +111,6 @@ public class TransactionController {
 		}
 	}
 	
-	// Report Generation. Simple Report
-	@GetMapping("/customers/{customer_id}/financial-report")
-	public ResponseEntity<FinancialReport>  generateFinancialReport(
-			 @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-		        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, @PathVariable("customer_id") long customerId) {
-
-	    // retrieve transactions for the specified time period
-	    List<Transaction> transactions = null;
-	    
-		try {
-			
-			transactions = transactionRepo.findByCreatedAtBetweenAndCustomerId(startDate, endDate, customerId);
-			if (transactions.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			else {
-				 // perform necessary calculations to generate financial report
-			    double totalIncome = 0.0;
-			    double totalExpenses = 0.0;
-			    for (Transaction transaction : transactions) {
-			        if (transaction.getAmount() > 0) {
-			            totalIncome += transaction.getAmount();
-			        } else {
-			            totalExpenses -= transaction.getAmount();
-			        }
-			    }
-			    double netIncome = totalIncome - totalExpenses;
-
-			    // create FinancialReport object to return
-			 // create FinancialReport object to return
-			    FinancialReport financialReport = new FinancialReport(startDate, endDate, totalIncome, totalExpenses, netIncome);
-			    return new ResponseEntity <FinancialReport> (financialReport, HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-	   
-	}
-
 	
 	
 }
