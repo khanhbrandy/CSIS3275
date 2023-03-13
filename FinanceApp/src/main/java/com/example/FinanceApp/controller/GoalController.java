@@ -34,8 +34,8 @@ public class GoalController {
 	CustomerRepository customerRepository;
 
 	// Get all the goals for an user
-	@GetMapping("/customers/{user_id}/goals")
-	public ResponseEntity<List<Goal>> getAllGoals(@PathVariable("user_id") long user_id) {
+	@GetMapping("/customers/{customer_id}/goals")
+	public ResponseEntity<List<Goal>> getAllGoals(@PathVariable("customer_id") long user_id) {
 		try {
 			List<Goal> allGoals = new ArrayList<Goal>();
 			// To-do
@@ -52,8 +52,8 @@ public class GoalController {
 	}
 
 //Create a new Goal for a given user
-	@PostMapping("/customers/{user_id}/goals")
-	public ResponseEntity<Goal> createGoal(@PathVariable("user_id") long user_id, @RequestBody Goal newGoal) {
+	@PostMapping("/customers/{customer_id}/goals")
+	public ResponseEntity<Goal> createGoal(@PathVariable("customer_id") long user_id, @RequestBody Goal newGoal) {
 		try {
 			Goal new_goal = goalRepository.save(new Goal(newGoal.getName(), newGoal.getAmount(), newGoal.getCurrentAmount(),
 					newGoal.getDescription(), newGoal.getDeadline()));
@@ -65,8 +65,8 @@ public class GoalController {
 	}
 
 //Update/modify a Goal
-@PutMapping("/customers/{user_id}/goals/{goal_id}")
-public ResponseEntity <Goal> updatedGoal(@PathVariable("user_id") long user_id,@PathVariable("goal_id") long goal_id, @RequestBody Goal updated_Goal ){
+@PutMapping("/customers/{customer_id}/goals/{goal_id}")
+public ResponseEntity <Goal> updatedGoal(@PathVariable("customer_id") long user_id,@PathVariable("goal_id") long goal_id, @RequestBody Goal updated_Goal ){
 try {
 	Optional<Customer> user = customerRepository.findById(user_id);
 	Optional<Goal> goalData = goalRepository.findByIdAndCustomer_Id(goal_id , user_id);
@@ -95,8 +95,8 @@ try {
 }
 }
 
-@DeleteMapping("/customers/{user_id}/goals/{goal_id}")
-public ResponseEntity<HttpStatus> deleteGoal(@PathVariable("user_id") long user_id,@PathVariable("goal_id") long goal_id) {
+@DeleteMapping("/customers/{customer_id}/goals/{goal_id}")
+public ResponseEntity<HttpStatus> deleteGoal(@PathVariable("customer_id") long user_id,@PathVariable("goal_id") long goal_id) {
 	try {
 		goalRepository.deleteByIdAndCustomer_Id( goal_id, user_id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

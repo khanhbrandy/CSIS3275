@@ -112,10 +112,10 @@ public class TransactionController {
 	}
 	
 	// Report Generation. Simple Report
-	@GetMapping("/customers/{user_id}/financial-report")
+	@GetMapping("/customers/{customer_id}/financial-report")
 	public ResponseEntity<FinancialReport>  generateFinancialReport(
 			 @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-		        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, @PathVariable("user_id") long customerId) {
+		        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, @PathVariable("customer_id") long customerId) {
 
 	    // retrieve transactions for the specified time period
 	    List<Transaction> transactions = null;
