@@ -16,7 +16,8 @@
         </form>
 
         <button class="loginSubmit" type="submit" @click="login">Login</button>
-        <p>{{ message }}</p>
+        <h3><a href="/register">Don't have an account? Register here</a></h3><br>
+        <!-- <h3>{{ message }}</h3><br> -->
     </div>
 
 </template>
@@ -37,13 +38,13 @@ export default {
             LoginService.login(this.customerLoginRequest)
                 .then(response => {       // HttpStatus.OK
                     var customer = response.data;
-                    console.log(customer);
+                    this.message = `Welcome ${customer.name}`
                     localStorage.setItem("cid", customer.id);
                     // store the student (sid) to the local storage
                     // RESTful server does not have session
                     // Session info is saved in local storage and talk to
                     // server as json
-                    this.$router.push({ name: "login" });
+                    this.$router.push({ name: "transaction" });
                 })
                 .catch(e => {
                     this.customerLoginRequest.username = "";
@@ -60,10 +61,7 @@ export default {
 </script>
 
 <style>
-/*
-   Created by: Ngoc Khanh Trinh
-   Created on: 13/06/2022
-*/
+
 @charset "utf-8";
 
 /* Set the default page element styles */
@@ -119,8 +117,20 @@ nav a {
 
 h4 {
     font-size: 1.2em;
-    margin: 20 auto 5% auto;
+    margin: 20 auto 10% auto;
     text-align: center;
+    text-decoration: none;
+}
+
+h3 {
+    font-size: 0.9em;
+    margin: 0 auto 0 auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 
@@ -146,7 +156,7 @@ button.loginSubmit {
   background-color: #006381;
   color: white;
   padding: 14px 20px;
-  margin: 10px 30% 5% 30%;
+  margin: 10px 30% 1% 30%;
   border: none;
   cursor: pointer;
   width: 40%;

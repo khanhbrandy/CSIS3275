@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import CustomerLogin from "../components/CustomerLogin.vue";
+import CustomerTransaction from "../components/CustomerTransaction.vue";
+import CustomerRegister from "../components/CustomerRegister.vue";
 
 const routes = [
     {
@@ -7,6 +9,18 @@ const routes = [
         alias: "/login",
         name: "login",
         component: CustomerLogin
+    },
+    {
+        path: "/transaction",
+        alias: "/transaction",
+        name: "transaction",
+        component: CustomerTransaction
+    },
+    {
+        path: "/register",
+        alias: "/register",
+        name: "register",
+        component: CustomerRegister
     }
 ];
 
