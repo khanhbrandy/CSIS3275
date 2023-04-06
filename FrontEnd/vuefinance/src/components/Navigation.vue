@@ -2,7 +2,8 @@
     <div>
         <div class="topnav">
             <a class="active" href="/">Home</a>
-            <a href="/register">Add transaction</a>
+            <a href="/register">Register</a>
+            <a href="/transaction">Add transaction</a>
             <a href="/report">Reports</a>
             <a href="#">About us</a>
         </div>
