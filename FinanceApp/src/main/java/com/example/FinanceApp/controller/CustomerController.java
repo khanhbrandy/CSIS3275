@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.FinanceAp.response.MessageResponse;
+import com.example.FinanceApp.response.MessageResponse;
 import com.example.FinanceApp.model.Customer;
 import com.example.FinanceApp.model.CustomerRepository;
 import com.example.FinanceApp.request.CustomerLoginRequest;
