@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.FinanceAp.response.MessageResponse;
 import com.example.FinanceApp.model.Customer;
 import com.example.FinanceApp.model.CustomerRepository;
+import com.example.FinanceApp.request.CustomerLoginRequest;
+
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -85,26 +88,25 @@ public class CustomerController {
 		}
 	}
 
-	@PostMapping("/login/{id}")
-	public ResponseEntity<HttpStatus> login(@PathVariable("id") long id, @RequestBody Map<String, String> payload) {
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody CustomerLoginRequest loginRequest) {
 		try {
-			boolean isSuccessful = false;
-			Optional<Customer> customerData = customerRepo.findById(id);
+			Optional<Customer> customerData = customerRepo.findByUsername(loginRequest.getUsername());
 			if (customerData.isPresent()) {
-				Customer _customer = customerData.get();
-				if (_customer.getUsername().equals(payload.get("username")) && _customer.getPassword().equals(payload.get("password"))) {
-					isSuccessful = true;
+				String password = customerData.get().getPassword();
+				if (password.equals(loginRequest.getPassword())) {
+					return new ResponseEntity<>(customerData.get(), HttpStatus.OK);
 				}
+				MessageResponse msg = new MessageResponse("Incorrect password");
+				return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
 			}
-			if (isSuccessful) {
-				return new ResponseEntity<>(HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-			}
-			
+			MessageResponse msg = new MessageResponse("No such a user");
+			return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			MessageResponse msg = new MessageResponse("Server Error");
+			return new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
 	}
 
 	@PostMapping("/customers")
