@@ -4,6 +4,9 @@
         <br>
         <h4>Welcome to Personal Finance App</h4>
         <form class="loginForm">
+            <div class="imgcontainer">
+                <img src = "../assets/appLogo.png" alt="Avatar" class="avatar" >
+            </div>
             <div class="container">
                 <label for="username">Username</label>
                 <input type="text" placeholder="Enter Username" id="username" v-model="customerLoginRequest.username" />
@@ -169,7 +172,7 @@ button:hover {
 
 /* Avatar image */
 img.avatar {
-  width: 80%;
+  width: 30%;
   border-radius: 0;
 }
 
