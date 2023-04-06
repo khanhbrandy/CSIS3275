@@ -156,6 +156,7 @@ button:hover {
 .signupbtn {
     float: left;
     width: 50%;
+    margin: auto ;
 }
 
 /* Add padding to container elements */
