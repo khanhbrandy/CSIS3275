@@ -52,6 +52,9 @@ export default {
                     this.message = e.response.data.message;
                     console.log(e.response.data);
                 });
+        },
+        register() {
+          this.$router.push({ name: "register" });
         }
     },
     mounted() {   // called when component is loaded
