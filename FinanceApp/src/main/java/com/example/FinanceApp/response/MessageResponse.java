@@ -1,4 +1,4 @@
-package com.example.FinanceAp.response;
+package com.example.FinanceApp.response;
 
 public class MessageResponse {
 
