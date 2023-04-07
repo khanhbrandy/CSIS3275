@@ -23,7 +23,7 @@ import com.example.FinanceApp.model.CustomerRepository;
 import com.example.FinanceApp.model.Goal;
 import com.example.FinanceApp.model.GoalRepository;
 
-@CrossOrigin(origins = "http:/localhost:8081") // For Vue.JS
+@CrossOrigin(origins = "http://localhost:8081") // For Vue.JS
 @RestController
 @RequestMapping("/api")
 

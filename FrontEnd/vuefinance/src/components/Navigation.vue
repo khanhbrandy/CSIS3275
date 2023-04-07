@@ -6,6 +6,7 @@
             <a href="/transaction">Add transaction</a>
             <a href="/report">Reports</a>
             <a href="#">About us</a>
+            <a href ="/goals">Goals</a>
         </div>
     </div>
 </template>

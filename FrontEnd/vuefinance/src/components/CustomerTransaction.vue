@@ -50,7 +50,7 @@ export default {
     data() {
         return {
             customer: null,
-            transactionRequest: { amout: 0, category: "", type: "", note: "" },  // json
+            transactionRequest: { amount: 0, category: "", type: "", note: "" },  // json
             message: ""
 
 
