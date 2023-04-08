@@ -12,7 +12,7 @@
             <tbody>
                 <tr v-for="goal in goals" :key="goal.id">
                     <td>{{ goal.name }}</td>
-                    <td>{{ goal.Amount }}</td>
+                    <td>{{ goal.amount }}</td>
                     <td>{{ goal.currentAmount }}</td>
                     <td>{{ goal.deadline }}</td>
                 </tr>
