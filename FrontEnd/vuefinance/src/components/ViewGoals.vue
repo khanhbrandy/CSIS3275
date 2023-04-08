@@ -6,6 +6,7 @@
                     <th>Name</th>
                     <th>Target</th>
                     <th>Current Amount</th>
+                    <th> Progress </th>
                     <th>Deadline</th>
                 </tr>
             </thead>
@@ -14,6 +15,7 @@
                     <td>{{ goal.name }}</td>
                     <td>{{ goal.amount }}</td>
                     <td>{{ goal.currentAmount }}</td>
+                    <td>{{(goal.currentAmount*100/goal.amount).toFixed(2)}} %</td>
                     <td>{{ goal.deadline }}</td>
                 </tr>
             </tbody>
