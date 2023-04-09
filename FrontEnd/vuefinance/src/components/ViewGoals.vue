@@ -100,7 +100,7 @@ export default {
   width: 100%;
 }
 tr:hover {
-    background-color: #0080a7;
+    background-color: #c7d8d9;
 }
 .table th,
 .table td {
@@ -110,7 +110,7 @@ tr:hover {
 }
 
 .table th {
-  background-color: #00da80;
+  background-color: #e9fcff;
   color: #001e28;
 }
 

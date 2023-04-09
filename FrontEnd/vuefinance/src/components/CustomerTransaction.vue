@@ -11,7 +11,8 @@
             <form>
 
                 <label for="amount">Amount</label>
-                <input type="number" id="amount" name="amount" placeholder="Enter amount..." v-model="transactionRequest.amount">
+                <input type="number" id="amount" name="amount" placeholder="Enter amount..."
+                    v-model="transactionRequest.amount">
                 <label for="category">Category</label>
                 <select id="category" name="category" v-model="transactionRequest.category">
                     <option disabled value="">Please select one</option>
@@ -30,15 +31,16 @@
                     <option value="income">Income</option>
                 </select>
                 <label for="note">Note</label>
-                <textarea id="note" name="note" placeholder="Notes on your transaction..." style="height:100px" v-model="transactionRequest.note"></textarea>
+                <textarea id="note" name="note" placeholder="Notes on your transaction..." style="height:100px"
+                    v-model="transactionRequest.note"></textarea>
 
                 <!-- <input type="submit" value="Add transaction" @click="createTransaction"> -->
 
             </form>
             <div class="clearfix">
-            <button type="button" class="signupbtn"  @click="createTransaction">Add transaction</button>
-            <button type="button" class="cancelbtn"  @click="report">See summary report</button>
-        </div>
+                <button type="button" class="signupbtn" @click="createTransaction">Add transaction</button>
+                <button type="button" class="cancelbtn" @click="report">See summary report</button>
+            </div>
         </div>
     </div>
 </template>
@@ -101,49 +103,61 @@ export default {
 
 <style>
 button.logoutSubmit {
-  background-color: #006381;
-  color: white;
-  padding: 14px 20px;
-  margin: 10px 30% 1% 30%;
-  border: none;
-  cursor: pointer;
-  width: 40%;
-  border-radius: 25px;
-  border: 2px solid  #006381;
-  font-size: 1.2em;
+    background-color: #006381;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 30% 1% 30%;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+    border-radius: 25px;
+    border: 2px solid #006381;
+    font-size: 1.2em;
 }
+
 /* Style inputs with type="text", select elements and textareas */
-input[type=text], input[type=number], select, textarea {
-  width: 100%; /* Full width */
-  padding: 12px; /* Some padding */ 
-  border: 1px solid #ccc; /* Gray border */
-  border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; /* Make sure that padding and width stays in place */
-  margin-top: 6px; /* Add a top margin */
-  margin-bottom: 16px; /* Bottom margin */
-  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+input[type=text],
+input[type=number],
+select,
+textarea {
+    width: 100%;
+    /* Full width */
+    padding: 12px;
+    /* Some padding */
+    border: 1px solid #ccc;
+    /* Gray border */
+    border-radius: 4px;
+    /* Rounded borders */
+    box-sizing: border-box;
+    /* Make sure that padding and width stays in place */
+    margin-top: 6px;
+    /* Add a top margin */
+    margin-bottom: 16px;
+    /* Bottom margin */
+    resize: vertical
+        /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
 /* Style the submit button with a specific background color etc */
 input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 /* When moving the mouse over the submit button, add a darker green color */
 input[type=submit]:hover {
-  background-color: #45a049;
+    background-color: #45a049;
 }
 
 /* Add a background color and some padding around the form */
 .container {
-  border-radius: 5px;
-  background-color: #ffffff;
-  padding: 20px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 20px;
 }
 
 p {
@@ -152,5 +166,4 @@ p {
     text-align: center;
     text-decoration: none;
     font-style: normal
-}
-</style>
+}</style>

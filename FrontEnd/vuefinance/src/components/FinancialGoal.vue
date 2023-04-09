@@ -1,16 +1,15 @@
 <template>
-    <header>
-        <h4> Create and track a Financial Goal </h4>
-    </header>
-    <section>
-        <div>
+    <div>
+        
+        <h4> <br>Create and track a Financial Goal </h4>
+
 
             <form>
                 <div class="container">
 
 
-                    <label>Name</label>
-                    <input type="text" v-model="GoalRequest.name" required>
+                <label>Name your goal </label>
+                <input type="text" v-model="GoalRequest.name" required>
 
                     <label>Description</label>
                     <textarea placeholder="Add some description..." v-model="GoalRequest.description" required> </textarea>
@@ -38,8 +37,7 @@
 
                 </div>
             </form>
-        </div>
-    </section>
+    </div>
 
     <aside>
         <!--show if the button is clicked-->

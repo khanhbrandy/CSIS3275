@@ -5,7 +5,7 @@
         <h4>Welcome to Personal Finance App</h4>
         <form class="loginForm">
             <div class="imgcontainer">
-                <img src = "../assets/appLogo.png" alt="Avatar" class="avatar" >
+                <img src = "../assets/appLogo.png" alt="Avatar" class="avatar">
             </div>
             <div class="container">
                 <label for="username">Username</label>
