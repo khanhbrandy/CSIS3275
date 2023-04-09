@@ -3,9 +3,8 @@
         <div class="topnav">
             <a class="active" href="/">Home</a>
             <a href="/register">Register</a>
-            <a href="/transaction">Add transaction</a>
+            <a href="/transaction">Transactions</a>
             <a href="/report">Reports</a>
-            <a href="#">About us</a>
             <a href ="/goals">Goals</a>
         </div>
     </div>
