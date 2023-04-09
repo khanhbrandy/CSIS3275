@@ -7,7 +7,11 @@ class TransactionService {
 
     createTransaction(id, data) {
         return http.post(`/customers/${id}/transactions`, data);
-      }
+    }
+
+    retrieveTransaction(id) {
+        return http.get(`/customers/${id}/transactions`);
+    }
 }
 
 export default new TransactionService();

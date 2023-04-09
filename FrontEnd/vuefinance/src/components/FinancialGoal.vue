@@ -1,13 +1,13 @@
 <template>
     <div>
-
-        <h1> Create and track a Financial Goal </h1>
+        <br>
+        <h4> Create and track a Financial Goal </h4>
 
         <form>
             <div class="container">
 
 
-                <label>Name</label>
+                <label>Name of your goal</label>
                 <input type="text" v-model="GoalRequest.name" required>
 
                 <label>Description</label>
