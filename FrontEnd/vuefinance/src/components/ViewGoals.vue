@@ -36,8 +36,6 @@ export default {
         return {
             //A list of goals
             goals: [],
-            currentGoal: null,
-            currentIndex: -1,
             message:"",
 
         };
@@ -59,24 +57,17 @@ export default {
                 });
 
         },
-        refreshList() {
-
-            this.goalList();
-            this.currentGoal = null;
-            this.currentIndex = -1;
-        },
 
         deletegoal(gid){
             const customerId = localStorage.getItem('cid')
             GoalService.delete(customerId, gid)
-            this.refreshList()
         },
         confirmation(gid){
             let text = "Are you sure you want to delete this Goal?"
             if(confirm(text)==true){
                 this.deletegoal(gid)
                 alert("Goal has been deleted")
-                
+                this.goalList();
             }
 
         }
