@@ -144,15 +144,28 @@ public class FinanceAppApplication {
 			// Adding Sample Reminders to table
 			Reminder reminder1 = new Reminder("AppleCare payment", "Description......", "20230310", "20230320",
 					"monthly", "pending");
+			reminder1.setCustomer(customer1);
 			Reminder reminder2 = new Reminder("Hydro payment", "Description......", "20230310", "20230320", "monthly",
 					"pending");
+			reminder2.setCustomer(customer1);
 			Reminder reminder3 = new Reminder("Wifi payment", "Description......", "20230310", "20230320", "monthly",
 					"pending");
+			reminder3.setCustomer(customer1);
 			Reminder reminder4 = new Reminder("Phone payment", "Description......", "20230310", "20230312", "monthly",
 					"done");
+			reminder4.setCustomer(customer1);
 			Reminder reminder5 = new Reminder("Network Provider payment", "Description......", "20230310", "20230312",
 					"monthly", "done");
-
+			reminder5.setCustomer(customer1);
+			
+			Set<Reminder> reminders = new HashSet<>();
+			reminders.add(reminder1);
+			reminders.add(reminder2);
+			reminders.add(reminder3);
+			reminders.add(reminder4);
+			reminders.add(reminder5);
+			
+			customer1.setReminders(reminders);
 			reminderRepo.save(reminder1);
 			reminderRepo.save(reminder2);
 			reminderRepo.save(reminder3);

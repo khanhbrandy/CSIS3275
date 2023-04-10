@@ -78,7 +78,18 @@ public class Customer {
 	}
 	
 	
-	
+	//Reminders
+		@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+		@JsonIgnore
+		private Set<Reminder> reminders = new HashSet<>();
+			
+		public Set<Reminder> getReminders() {
+			return reminders;
+		}
+
+		public void setReminders(Set<Reminder> reminders) {
+			this.reminders = reminders;
+		}
 	
 	public Customer() {} 
 	public Customer(String name, int age, String email, String profession, String country, String username, String password) {
