@@ -32,6 +32,9 @@ public class Reminder {
 	@Column
 	private String description;
 	
+	@Column 
+	private String amount;
+	
 	@Column
 	private String createdAt;
 	
@@ -48,9 +51,10 @@ public class Reminder {
 		
 	}
 	
-	public Reminder(String name,String description,String createdAt,String deadline,String frequency,String status) {
+	public Reminder(String name,String description,String amount,String createdAt,String deadline,String frequency,String status) {
 		this.name=name;
 		this.description=description;
+		this.amount = amount;
 		this.createdAt = createdAt;
 		this.deadline = deadline;
 		this.frequency = frequency;
@@ -116,6 +120,15 @@ public class Reminder {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	
 	
 	
 }

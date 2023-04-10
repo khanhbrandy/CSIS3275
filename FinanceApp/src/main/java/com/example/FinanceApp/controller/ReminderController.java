@@ -53,58 +53,58 @@ public class ReminderController {
 		}
 	}
 	
-//	@GetMapping("/reminders/name/{name}")
-//	public ResponseEntity< List<Reminder>> getReminderByName(@PathVariable("name") String name){
-//		
-//		try {
-//			List<Reminder> reminders = new ArrayList<>();
-//			reminderRepo.findByName(name).forEach(reminders::add);
-//			if (reminders.isEmpty()) {
-//				return new ResponseEntity(HttpStatus.NO_CONTENT);
-//			}
-//
-//			return new ResponseEntity(reminders, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+	@GetMapping("/reminders/name/{name}")
+	public ResponseEntity< List<Reminder>> getReminderByName(@PathVariable("name") String name){
+		
+		try {
+			List<Reminder> reminders = new ArrayList<>();
+			reminderRepo.findByName(name).forEach(reminders::add);
+			if (reminders.isEmpty()) {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity(reminders, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
-//	@GetMapping("/reminders/status/{status}")
-//	public ResponseEntity< List<Reminder>> getReminderByStatus(@PathVariable("status") String status){
-//		
-//		try {
-//			List<Reminder> reminders = new ArrayList<>();
-//			reminderRepo.findByStatus(status).forEach(reminders::add);
-//			if (reminders.isEmpty()) {
-//				return new ResponseEntity(HttpStatus.NO_CONTENT);
-//			}
-//
-//			return new ResponseEntity(reminders, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
-//	@GetMapping("/reminders/deadline/{deadline}")
-//	public ResponseEntity< List<Reminder>> getReminderByDeadline(@PathVariable("deadline") String deadline){
-//		
-//		try {
-//			List<Reminder> reminders = new ArrayList<>();
-//			reminderRepo.findByDeadline(deadline).forEach(reminders::add);
-//			if (reminders.isEmpty()) {
-//				return new ResponseEntity(HttpStatus.NO_CONTENT);
-//			}
-//
-//			return new ResponseEntity(reminders, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
+	@GetMapping("/reminders/status/{status}")
+	public ResponseEntity< List<Reminder>> getReminderByStatus(@PathVariable("status") String status){
+		
+		try {
+			List<Reminder> reminders = new ArrayList<>();
+			reminderRepo.findByStatus(status).forEach(reminders::add);
+			if (reminders.isEmpty()) {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity(reminders, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/reminders/deadline/{deadline}")
+	public ResponseEntity< List<Reminder>> getReminderByDeadline(@PathVariable("deadline") String deadline){
+		
+		try {
+			List<Reminder> reminders = new ArrayList<>();
+			reminderRepo.findByDeadline(deadline).forEach(reminders::add);
+			if (reminders.isEmpty()) {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity(reminders, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PostMapping("/{user_id}/reminders")
 	public ResponseEntity<Customer> createReminder(@PathVariable("user_id") long user_id,@RequestBody Reminder reminder) {
 		try {
-			Reminder newReminder = new Reminder(reminder.getName(), reminder.getDescription(), reminder.getCreatedAt(),
+			Reminder newReminder = new Reminder(reminder.getName(), reminder.getDescription(), reminder.getAmount(), reminder.getCreatedAt(),
 					reminder.getDeadline(), reminder.getFrequency(),reminder.getStatus());
 			Optional<Customer> user = customerRepo.findById(user_id);
 			if(user.isPresent()) {
