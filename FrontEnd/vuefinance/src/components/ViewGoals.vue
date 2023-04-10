@@ -19,7 +19,8 @@
                     <td>{{ goal.currentAmount }}</td>
                     <td>{{(goal.currentAmount*100/goal.amount).toFixed(2)}} %</td>
                     <td>{{ goal.deadline }} </td>
-                    <td><span id =edit-icon v-on:click="editgoal(goal.id)">  📝</span><span v-on:click="confirmation(goal.id)" id=delete-icon>  ❌</span></td>
+                    <!--Use the Function from the parent component FinancialGoal-->
+                    <td><span id =edit-icon v-on:click="editGoal(goal.id)">  📝</span><span v-on:click="confirmation(goal.id)" id=delete-icon>  ❌</span></td>
                 </tr>
             </tbody>
         </table>
@@ -32,12 +33,15 @@ import GoalService from '../services/GoalService'
 export default {
 
     name: "ViewGoals",
+    // PassGoalId: propFunction To load the Goal Data Into The edit Form
+     //Signal about Edit/ Create Mode
+    props:['PassGoalId', 'edit'],
+    
     data() {
         return {
             //A list of goals
             goals: [],
             message:"",
-
         };
     },
     methods: {
@@ -70,7 +74,16 @@ export default {
                 this.goalList();
             }
 
-        }
+        },
+        editGoal(gid){
+            // Call function prop From parent component
+            this.PassGoalId(gid)
+            this.setEdit(true)
+        },
+        // To update The form In the Parent Component
+        setEdit(value) {
+    this.$emit('edit-changed', value);
+  }
 
     },
     mounted() {

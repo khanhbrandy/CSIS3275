@@ -33,6 +33,34 @@ public class GoalController {
 	
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	
+	// Get a single goal
+	
+	@GetMapping("/customers/{customer_id}/goals/{goal_id}")
+	public ResponseEntity <Goal> getGoal(@PathVariable("customer_id") long user_id,@PathVariable("goal_id") long goal_id ){
+	try {
+		Optional<Customer> user = customerRepository.findById(user_id);
+		Optional<Goal> goalData = goalRepository.findByIdAndCustomer_Id(goal_id , user_id);
+		
+		//If there are goals and the user exist
+		if(goalData.isPresent()&& user.isPresent()) {
+			
+			// Get the Goal object
+			Goal _goal = goalData.get();
+			//get Goal values for goal
+			
+			return new ResponseEntity<Goal>(_goal,HttpStatus.OK);
+
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}catch(Exception e) {
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	}
+	
 
 	// Get all the goals for an user
 	@GetMapping("/customers/{customer_id}/goals")

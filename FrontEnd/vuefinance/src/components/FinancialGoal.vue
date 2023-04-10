@@ -17,7 +17,7 @@
                     <label>Target Amount</label>
                     <input type="number" v-model="GoalRequest.amount" required>
 
-                    <label>Current Amount (How much do you have so far)</label>
+                    <label>Current Amount (What you have so far)</label>
                     <input type="number" v-model="GoalRequest.currentAmount" required>
 
                     <div class="date">
@@ -30,8 +30,11 @@
                     <h4>{{ message }}</h4>
 
                     <div class="clearfix">
-                        <button type="button" class="signupbtn" @click="createGoal"> Create Goal </button>
-                        <button type="button" class="cancelbtn" @click="showGoals = !showGoals"> View current goals</button>
+                        <!--Render On Create Mode (edit Mode = False)-->
+                        <button type="button" class="signupbtn" @click="createGoal" v-if="!edit"> Create Goal </button>
+                        <button type="button" class="cancelbtn" @click="showGoals = !showGoals" v-if="!edit"> View current goals</button>
+                        <!--Render in edit Mode. Change edit to fals once is clicked-->
+                        <button type="but" class="signupbtn" v-if="edit" @click="editGoal()" >Edit Goal</button>
                     </div>
 
 
@@ -40,8 +43,9 @@
     </div>
 
     <aside>
-        <!--show if the button is clicked-->
-        <viewGoals v-if="showGoals" />
+        <!--show All Goals if the button is clicked-->
+        <!-- Pass function to child to be called with the right id-->
+        <viewGoals v-if="showGoals" :PassGoalId="loadGoal" :edit="edit" v-on:edit-changed="edit = $event" />
 
     </aside>
 </template>
@@ -59,15 +63,21 @@ export default {
     },
     data() {
         return {
+
             customer: null,
             GoalRequest: { name: '', amount: null, currentAmount: null, description: '', deadline: '' },
             message: '',
+            // Call the view Goal component
             showGoals: false,
+            //Signal about Edit/ Create Mode to pass as prop to child
+            edit: false,
+            goalid: null
         }
     },
     methods: {
         createGoal() {
             const customerId = localStorage.getItem('cid')
+            //Basic Incorrect input handling
             if (this.GoalRequest.name != '' && this.GoalRequest.amount != null && this.GoalRequest.deadline != '') {
                 GoalService.createGoal(customerId, this.GoalRequest)
                     .then(response => {       // HttpStatus.OK
@@ -90,6 +100,40 @@ export default {
            this.showGoals = false
 
         },
+        //Load a specific Goal to edit
+        loadGoal(gid){
+            //Get Customer ID
+            const customer_id = localStorage.getItem('cid')
+            //Get Goal From Backend
+            GoalService.getGoal(customer_id, gid)
+            .then(response =>{
+                var goal = response.data
+                console.log(goal)
+                this.goalid = goal.id
+                // Load Goal Information to Edit
+                this.GoalRequest.name = goal.name
+                this.GoalRequest.amount = goal.amount
+                this.GoalRequest.currentAmount = goal.currentAmount
+                this.GoalRequest.description = goal.description
+                this.GoalRequest.deadline = goal.deadline
+            })
+            .catch(e=>{
+                console(e.response.data)
+            })
+            
+        },
+        editGoal(){
+            const customer_id = localStorage.getItem('cid')
+            //Update the Goal
+            GoalService.update(customer_id,this.goalid, this.GoalRequest)
+            //Hide the Edit Button
+            this.edit = !this.edit
+            alert("Goal has been updated")
+            //Hide Show All Goals
+            this.showGoals =!this.showGoals
+
+
+        }
 
 
     },
