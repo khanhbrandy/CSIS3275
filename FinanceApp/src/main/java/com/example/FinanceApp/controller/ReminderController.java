@@ -53,6 +53,22 @@ public class ReminderController {
 		}
 	}
 	
+	@GetMapping("/{user_id}/reminders/{rId}")
+	public ResponseEntity< Reminder> getAllReminders (@PathVariable("user_id") long user_id,@PathVariable("rId") long rId){
+		
+		try {
+			Optional<Reminder> reminder = reminderRepo.findByIdAndCustomer_Id(rId,user_id); 
+			
+			if (reminder.isEmpty()) {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity(reminder, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@GetMapping("/reminders/name/{name}")
 	public ResponseEntity< List<Reminder>> getReminderByName(@PathVariable("name") String name){
 		
