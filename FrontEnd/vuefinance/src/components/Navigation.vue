@@ -6,6 +6,8 @@
             <a href="/transaction">Transactions</a>
             <a href="/report">Reports</a>
             <a href ="/goals">Goals</a>
+            <a href ="/reminder">Reminder</a>
+            <a href ="/aboutus">About Us</a>
         </div>
     </div>
 </template>

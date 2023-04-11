@@ -4,6 +4,8 @@ import CustomerTransaction from "../components/CustomerTransaction.vue";
 import CustomerRegister from "../components/CustomerRegister.vue";
 import FinancialGoal from "../components/FinancialGoal"
 import CustomerReport from "../components/CustomerReport"
+import ReminderList from "../components/ReminderList"
+import AboutUs from "../components/AboutUs"
 
 const routes = [
     {
@@ -35,6 +37,17 @@ const routes = [
         path:"/goals",
         name: "FinancialGoals",
         component: FinancialGoal
+    },
+
+    {
+        path:"/reminder",
+        name: "ReminderList",
+        component: ReminderList
+    },
+    {
+        path:"/aboutus",
+        name: "AboutUs",
+        component: AboutUs
     }
 ];
 
