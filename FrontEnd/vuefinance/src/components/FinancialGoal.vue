@@ -102,6 +102,8 @@ export default {
         },
         //Load a specific Goal to edit
         loadGoal(gid){
+            
+            this.message =''
             //Get Customer ID
             const customer_id = localStorage.getItem('cid')
             //Get Goal From Backend

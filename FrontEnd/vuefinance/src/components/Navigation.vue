@@ -7,7 +7,7 @@
             <a href="/report">Reports</a>
             <a href ="/goals">Goals</a>
             <a href ="/reminder">Reminder</a>
-            <a href ="/aboutus">About Us</a>
+            <a href ="/aboutus">Instructions</a>
         </div>
     </div>
 </template>
