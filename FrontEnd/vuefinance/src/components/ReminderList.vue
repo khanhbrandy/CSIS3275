@@ -2,7 +2,7 @@
     <div>
 
         <h1> Create Reminders </h1>
-
+        <h3>{{message}}</h3>
         <form>
             <div class="container">
 
@@ -73,8 +73,8 @@ export default{
         createReminder() {
             const customerId = localStorage.getItem('cid');
             console.log(this.ReminderRequest);
-
-            ReminderService.createReminder(customerId, this.ReminderRequest)
+            if (this.ReminderRequest.name != '' && this.ReminderRequest.amount != null && this.ReminderRequest.deadline != '' && this.ReminderRequest.frequency != '' && this.ReminderRequest.status !='' ){
+                ReminderService.createReminder(customerId, this.ReminderRequest)
                 .then(response => {       // HttpStatus.OK
                     var reminder = response.data;
                     console.log(reminder)
@@ -84,10 +84,14 @@ export default{
                     this.message = e.response.data.message;
                     console.log(e.response.data);
                 });
+            }else{
+                alert("Please fill out all the required fields")
+            }
+            
         },
         loadReminder(rId){
             const customer_id = localStorage.getItem('cid')
-            
+            this.message = 'Edit Reminder'
             ReminderService.getReminderById(rId,customer_id)
             .then(response =>{
                 var reminder = response.data
@@ -112,6 +116,7 @@ export default{
             //Hide the Edit Button
             this.edit = !this.edit
             alert("Reminder has been updated")
+            this.message = ''
             
             this.showReminders =!this.showReminders
         }
