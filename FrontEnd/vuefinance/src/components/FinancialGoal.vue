@@ -1,7 +1,7 @@
 <template>
     <div>
         
-        <h4> <br>Create and track a Financial Goal </h4>
+        <h4> {{messageTop}} </h4>
 
 
             <form>
@@ -66,6 +66,7 @@ export default {
 
             customer: null,
             GoalRequest: { name: '', amount: null, currentAmount: null, description: '', deadline: '' },
+            messageTop: 'Create and track a Financial Goal',
             message: '',
             // Call the view Goal component
             showGoals: false,
@@ -95,6 +96,7 @@ export default {
                     });
             }else {
                 this.message = "Fill out the data first!"
+                alert("Please Fill out the data first!")
             }
            // Hide Goal List
            this.showGoals = false
@@ -102,6 +104,9 @@ export default {
         },
         //Load a specific Goal to edit
         loadGoal(gid){
+            
+            this.messageTop ='Edit Financial Goal'
+            this.message =''
             //Get Customer ID
             const customer_id = localStorage.getItem('cid')
             //Get Goal From Backend
@@ -129,9 +134,14 @@ export default {
             //Hide the Edit Button
             this.edit = !this.edit
             alert("Goal has been updated")
-            //Hide Show All Goals
+           // If the user has achived the goal, celebrate
+            if (this.GoalRequest.currentAmount > this.GoalRequest.amount || this.GoalRequest.amount == this.GoalRequest.currentAmount){
+                alert(`Congratulations ${localStorage.getItem('uname')}, you've achieved your Goal! 🎉🎉`)
+            }
+             //Hide Show All Goals
             this.showGoals =!this.showGoals
-
+            this.message = ''
+            this.messageTop = 'Create and track a Financial Goal'
 
         }
 

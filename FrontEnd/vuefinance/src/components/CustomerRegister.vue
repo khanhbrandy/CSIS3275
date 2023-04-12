@@ -5,7 +5,7 @@
             <div class="container">
                 <h4>Register an account</h4><br>
                 <p>{{ message }}</p><br>
-                <!-- <p>Please fill in this form to create an account</p> -->
+                <!--Please fill in this form to create an account -->
                 <hr>
                 <label for="username"><b>Username</b></label>
                 <input type="text" placeholder="Enter your username" name="username" id="username"
@@ -20,7 +20,7 @@
                     v-model="customerRegisterRequest.name">
 
                 <label for="age"><b>Your age</b></label>
-                <input type="text" placeholder="Enter your age" name="age" id="age" v-model="customerRegisterRequest.age">
+                <input type="number" placeholder="Enter your age" name="age" id="age" v-model="customerRegisterRequest.age">
 
                 <label for="email"><b>Email</b></label>
                 <input type="text" placeholder="Enter your email" name="email" id="email"
@@ -64,7 +64,9 @@ export default {
     },
     methods: {
         register() {
-            RegisterService.register(this.customerRegisterRequest)
+            //If the user has fillout the form
+            if(this.customerRegisterRequest.name !='' && this.customerRegisterRequest.age!='' && this.customerRegisterRequest.email != '' && this.customerRegisterRequest.profession !="" && this.customerRegisterRequest.username !='' && this.customerRegisterRequest.password !='' &&this.customerRegisterRequest.country !=''){
+                RegisterService.register(this.customerRegisterRequest)
                 .then(response => {       // HttpStatus.OK
                     var customer = response.data;
                     console.log(customer)
@@ -75,6 +77,10 @@ export default {
                     this.message = e.response.data.message;
                     console.log(e.response.data);
                 });
+            }else{
+                alert("Please fill out the registration form")
+            }
+           
         },
         login() {
             this.$router.push({ name: "login" });

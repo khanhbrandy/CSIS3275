@@ -40,6 +40,7 @@ export default {
                     var customer = response.data;
                     this.message = `Welcome ${customer.name}`
                     localStorage.setItem("cid", customer.id);
+                    localStorage.setItem('uname', customer.name)
                     // store the student (sid) to the local storage
                     // RESTful server does not have session
                     // Session info is saved in local storage and talk to
